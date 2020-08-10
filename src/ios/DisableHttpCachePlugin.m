@@ -1,4 +1,5 @@
 #import "DisableHttpCachePlugin.h"
+#import <WebKit/WebKit.h>
 
 @implementation DisableHttpCachePlugin
 
@@ -8,8 +9,14 @@
   [NSURLCache setSharedURLCache:URLCache];
 }
 
+#if WK_WEB_VIEW_ONLY
+- (DisableHttpCachePlugin*)initWithWebView:(WKWebView*)theWebView {
+  return self;
+}
+#else
 - (DisableHttpCachePlugin*)initWithWebView:(UIWebView*)theWebView {
   return self;
 }
+#endif
 
 @end
